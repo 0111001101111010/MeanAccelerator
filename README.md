@@ -2,7 +2,9 @@
 
 This is a MEAN (Mongo, Express, Angular, Node) web starter kit. It includes common features needed by almost all web applications include Sign Up, Sign In, Sign Out, Forgot Password, Update Profile, Update Password, and several stubbed out pages such as a home page, blog, etc.
 
-##Technologies Used##
+Forked from [Kevin Griffin's](https://github.com/1kevgriff) starter web application project.
+
+##Technologies/Frameworks/Services Used##
 
 * NodeJS
 * AngularJS
@@ -13,10 +15,11 @@ This is a MEAN (Mongo, Express, Angular, Node) web starter kit. It includes comm
 
 ##Configurations Required##
 
-###Emails###
+###Email###
 
-  * Update `/server/config/environment`; replace email@yourcompany.com with your appropriate email address(es)
-  * Create a user account at Mandrill.com
+  * Update `/server/config/environment`
+    * Replace email@yourcompany.com with your appropriate email address(es)
+  * Create a [Mandrill](http://mandrill.com) user account
   * Update `/server/config/mandrill`; enter your API key
 
 ###MongoDB###
