@@ -1,32 +1,50 @@
-var mongo = require('mongodb').MongoClient,
-	db,
-	isAlreadyConnected = function () {
-		return db && db.serverConfig.isConnected();
-	};
+function controller(environmentConfig) {
 
-module.exports.connect = function (environmentConfig, callback) {
-	var cb = callback || function() {};
+	var mongo = require('mongodb').MongoClient,
+		db,
 
-	if(isAlreadyConnected()) {
-		return cb(db);
+		isAlreadyConnected = function () {
+			var isConnected = !!(db && db.serverConfig.isConnected());
+			return isConnected;
+		},
+
+		connectFunction = function (callback) {
+			var cb = callback || function() {};
+
+			if(isAlreadyConnected()) {
+				return cb(db);
+			}
+
+			mongo.connect(environmentConfig.databaseConnectionString, function(connectionErr, newDb) {
+				console.log('Mongo: now connected');
+				db = newDb;
+				return cb(db);
+			});
+		};
+
+	return {
+
+		getDb: function (callback) {
+			var cb = callback || function() {};
+
+			if(!isAlreadyConnected()) {
+				connectFunction(function(db) {
+					return cb(db);
+				});
+
+				return;
+			}
+
+			return cb(db);
+		},
+
+		closeDb: function() {
+			if(db) {
+				db.close();
+			}
+		}
+
 	}
+}
 
-	mongo.connect(environmentConfig.databaseConnectionString, function(connectionErr, newDb) {
-		db = newDb;
-		return cb(db);
-	});
-};
-
-module.exports.getDb = function (callback) {
-	var cb = callback || function() {};
-
-	if(!isAlreadyConnected()) {
-		connect(function(db) {
-			return cb(db); 
-		});
-
-		return;
-	}
-
-	return cb(db);
-};
+module.exports = controller;
