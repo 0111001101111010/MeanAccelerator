@@ -1,0 +1,19 @@
+label.required{
+    background-image: url('../img/requiredIcon.png');
+    background-repeat:no-repeat;
+    background-position-y: 50%;
+    padding-left: 12px;
+}
+
+.nav-buttons{
+	margin-left: 15px;
+}
+
+.txt-small {
+    font-size:x-small;
+    color:gray;
+}
+
+.padding-top-bottom {
+	padding: 25px 0 25px 0;
+}
